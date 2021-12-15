@@ -19,3 +19,12 @@ const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+app.get("/users/:id", (req, res) => {
+    console.log(req.params.id);
+    res.json({
+        success: true,
+        message: "Got one user",
+        user: req.params.id
+    });
+});

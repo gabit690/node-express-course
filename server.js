@@ -48,6 +48,15 @@ app.post("/login", (req, res) => {
     }
 });
 
+app.get("/author", (req, res) => {
+    console.log("Easter egg was found");
+    res.json({
+        author: "Gabit",
+        country: "Argentina",
+        year: (new Date()).getFullYear()
+    });
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

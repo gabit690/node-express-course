@@ -1,10 +1,14 @@
-const express = require('express');
+const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
+const PORT = 8000;
 const mockUserData = [
     {name:"Mark"},
     {name:"Jill"}
 ];
+
+app.use(bodyParser.json());
 
 app.get("/users", (req, res) => {
     res.json({
@@ -14,12 +18,6 @@ app.get("/users", (req, res) => {
     });
 });
 
-const PORT = 8000;
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
 app.get("/users/:id", (req, res) => {
     console.log(req.params.id);
     res.json({
@@ -27,4 +25,29 @@ app.get("/users/:id", (req, res) => {
         message: "Got one user",
         user: req.params.id
     });
+});
+
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const mockUsername = "gabit";
+    const mockPassword = "1234";
+
+    if (username === mockUsername && password === mockPassword) {
+        res.json({
+            success: true,
+            message: "Password and username match!",
+            token: "Encryted token goes here"
+        });
+    } else {
+        res.json({
+            success: false,
+            message: "Password and username do not match"
+        });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
